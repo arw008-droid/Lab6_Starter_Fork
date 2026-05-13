@@ -77,18 +77,28 @@ function initFormHandler() {
 	// B5. TODO - Create an empty object (we'll refer to this object as recipeObject to
 	//            make this easier to read), and then extract the keys and corresponding
 	//            values from the FormData object and insert them into recipeObject
-		let recipeObject = {};
+		let recipeObject = Object.fromEntries(obj);
 	// B6. TODO - Create a new <recipe-card> element
 		let recipeEl = document.createElement("recipe-card");
 	// B7. TODO - Add the recipeObject data to <recipe-card> using element.data
-		
+		recipeEl.data = recipeObject;
 	// B8. TODO - Append this new <recipe-card> to <main>
+		document.querySelector("main").appendChild(recipeEl);
 	// B9. TODO - Get the recipes array from localStorage, add this new recipe to it, and
 	//            then save the recipes array back to localStorage
+		let recipes = getRecipesFromStorage();
+		recipes.push(recipeObject);
+		saveRecipesToStorage(recipes);
+	});
 	// B10. TODO - Get a reference to the "Clear Local Storage" button
+	let clrBtn = document.querySelector("button.danger");
 	// B11. TODO - Add a click event listener to clear local storage button
+	clrBtn.addEventListener("click", function () {
 	// Steps B12 & B13 will occur inside the event listener from step B11
 	// B12. TODO - Clear the local storage
+		localStorage.clear();
 	// B13. TODO - Delete the contents of <main>
+		document.querySelector("main").innerHTML = "";
 	});
+	
 }
